@@ -1,3 +1,3 @@
 <?php
 
-echo "this is the home page";
+require("../private/core/autoload.php");
