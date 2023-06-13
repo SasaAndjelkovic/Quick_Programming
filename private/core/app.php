@@ -12,17 +12,20 @@
 
     public function __construct()
     {
-        echo "<pre>";
-        print_r($this->getURL());
+        $URL = $this->getURL();
+        if(file_exists("../private/controllers/".$URL[0].".php")){
+            $this->controller = $URL[0];
+        }
+
+        require "../private/controllers/".$this->controller.".php";
+        $this->controller = new $this->controller();
+            
     }
 
     private function getURL()
     {
-        // echo "<pre>";
-        // print_r($_GET);
-        return explode("/", filter_var(trim($_GET['url'],"/")),FILTER_SANITIZE_URL);
-        // http://localhost:8080/Quick_Programming/public/students/subject/123
-        // Array ( [0] => students [1] => subject [2] => 123 )
+        $url = isset($_GET['url']) ? $_GET['url'] : "home"; //da url ima bar pocetnu vrednost
+        return explode("/", filter_var(trim($url,"/")),FILTER_SANITIZE_URL);
     }
  }
  
