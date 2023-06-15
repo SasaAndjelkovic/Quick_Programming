@@ -34,12 +34,17 @@
         padding: 8px;
         width:100%;
     }
+    textarea{
+        margin: 4px;
+        padding: 8px;
+        width:100%;
+    }
     button{
         padding: 10px;
     }
 </style>
 <header>
-    <div><a href="home.php">Home</a></div>
+    <div><a href="index.php">Home</a></div>
     <div><a href="profile.php">Profile</a></div>
     <div><a href="login.php">Login</a></div>
     <div><a href="signup.php">Signup</a></div>
