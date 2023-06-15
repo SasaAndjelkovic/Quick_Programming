@@ -2,6 +2,7 @@
     *{
         padding:0px;
         margin: 0px;
+        box-sizing: border-box;
     }
     a{
         text-decoration: none;
@@ -22,6 +23,19 @@
     
         justify-content: center;
         align-items: center;
+    }
+    footer{
+        padding: 20px;
+        text-align: center;
+        background-color: lavender;
+    }
+    input{
+        margin: 4px;
+        padding: 8px;
+        width:100%;
+    }
+    button{
+        padding: 10px;
     }
 </style>
 <header>
