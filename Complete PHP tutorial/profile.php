@@ -1,3 +1,9 @@
+<?php
+
+    require "functions.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +24,10 @@
                 <td><img src="img.jpg" style="width: 150px;height: 150px;object-fit: cover;"></td>
             </tr>
             <tr>
-                <td>John</td>
+                <td><?php echo $_SESSION['info']['username']?></td>
             </tr>
             <tr>
-                <td>john@email.com</td>
+                <td><?php echo $_SESSION['info']['email']?></td>
             </tr>
         </table>
         <hr>

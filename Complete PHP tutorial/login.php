@@ -11,12 +11,14 @@
 
         $result = mysqli_query($con, $query);
 
-        //print_r($result);  // mysqli_result Object ( [current_field] => 0 [field_count] => 6 [lengths] => [num_rows] => 1 [type] => 0 )
-        //print_r(mysqli_num_rows($result));  // 1
-
         if(mysqli_num_rows($result) > 0){
+
+            $row = mysqli_fetch_assoc($result);
+
+            $_SESSION['info'] = $row;
             header("Location: profile.php");
             exit();
+            
         }else {
             $error = "wrong email or password";
         } 
@@ -50,7 +52,7 @@
         <form method="post" style="margin: auto;padding: 10px;">
         
             <input type="email" name="email" placeholder="Email" required><br>
-            <input type="text" name="password" placeholder="Password" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
 
             <button>Login</button>
         </form>
