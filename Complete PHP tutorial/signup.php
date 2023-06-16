@@ -1,3 +1,25 @@
+<?php
+
+    require "functions.php";
+
+    if($_SERVER['REQUEST_METHOD'] == "POST")
+    {
+        //print_r($_POST);  Array ( [username] => [email] => [password] => )
+        $username = addslashes($_POST['username']);
+        $email = addslashes($_POST['email']);
+        $password = addslashes($_POST['password']);
+        $date = date('Y-m-d H:i:s');
+
+        $query = "insert into users (username, email, password, date) values ('$username', '$email', '$password', '$date')";
+    
+        $result = mysqli_query($con, $query);
+
+        header("Location: login.php");
+        exit();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +37,9 @@
 
         <form method="post" style="margin: auto;padding: 10px;">
         
-            <input type="text" name="username" placeholder="Username"><br>
-            <input type="text" name="email" placeholder="Email"><br>
-            <input type="text" name="password" placeholder="Password"><br>
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="text" name="password" placeholder="Password" required><br>
 
             <button>Signup</button>
         </form>
