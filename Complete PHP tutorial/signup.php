@@ -4,7 +4,6 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        //print_r($_POST);  Array ( [username] => [email] => [password] => )
         $username = addslashes($_POST['username']);
         $email = addslashes($_POST['email']);
         $password = addslashes($_POST['password']);
