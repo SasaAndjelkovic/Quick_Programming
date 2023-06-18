@@ -16,7 +16,7 @@
                 unlink($_SESSION['info']['image']);
             }
 
-            $query = "delete from posts where user_id = '$id'";
+            $query = "delete from users where user_id = '$id'";
             $result = mysqli_query($con, $query);
 
             header("Location: logout.php");
@@ -64,6 +64,32 @@
 
                 $_SESSION['info'] = $row;
             }
+
+            header("Location: profile.php");
+            exit();
+        }
+
+        elseif($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['post']))
+        {  
+            //adding post
+            $image = "";
+
+            if(!empty($_FILES['image']['name']) && $_FILES['image']['error'] == 0){
+                //file was uploaded
+                $folder = "uploads/";
+                if(!file_exists($folder)){
+                    mkdir($folder,0777,true);
+                }
+                $image = $folder . $_FILES['image']['name'];
+                move_uploaded_file($_FILES['image']['tmp_name'], $image);
+                
+            }
+            $post = addslashes($_POST['post']);
+            $user_id = $_SESSION['info']['id'];
+            $date = date('Y-m-d H:i:s');
+            $query = "insert into posts (user_id,post,image,date) values ('$user_id','$post','$image','$date')";
+            
+            $result = mysqli_query($con, $query);
 
             header("Location: profile.php");
             exit();
@@ -143,12 +169,56 @@
             <br>
             <hr>
             <h5>Create a post</h5>
-            <form method="post" style="margin: auto;padding: 10px;">
+            <form method="post" enctype="multipart/form-data" style="margin: auto;padding: 10px;">
             
+                image: <input type="file" name="image"><br>
                 <textarea name="post" id="" cols="30" rows="10"></textarea><br>
 
                 <button>Post</button>
             </form>
+
+            <hr>
+            <div>
+                <?php
+                    $id = $_SESSION['info']['id'];
+                    $query = "select * from posts where user_id = '$id'";
+
+                    $result = mysqli_query($con,$query);
+                ?>
+
+                <?php if(mysqli_num_rows($result) > 0):?>
+                <!-- <//?php if(!empty($posts)):?> -->
+
+                    <!-- <//?php foreach ($posts as $row):?> -->
+                    <?php while($row = mysqli_fetch_assoc($result)):?>
+                        <?php 
+                            $user_id = $row['user_id'];
+                            $query = "select username,image from users where id = '$user_id' limit 1";   
+                            $result2 = mysqli_query($con,$query);
+
+                            $user_row = mysqli_fetch_assoc($result2);
+                        ?>
+                        <div style="display: flex;border:solid thin #aaa;border-radius: 10px;margin-bottom: 10px;margin-bottom: 10px">
+                            <div style="flex:1;text-align:center;">
+                                <img src="<?=$user_row['image']?>" style="margin:10px;width:100px;height:100px;object-fit: cover;">
+                                <br>
+                                <?=$user_row['username']?>
+                            </div>
+                            <div style="flex:8">
+                                <?php if(file_exists($row['image'])):?>
+                                    <div>
+                                        <!-- <img src="<//?php echo $row['image']?>"> -->
+                                        <img src="<?=$row['image']?>" style="width:100%;height:200px;object-fit: cover;">
+                                     </div>
+                                <?php endif;?>
+                                <div>
+                                    <?php echo $row['post']?>
+    	                        </div>
+                            </div>
+                        </div>
+                    <?php endwhile;?>
+                <?php endif;?>
+            </div>
 
         <?php endif;?>
     </div>
