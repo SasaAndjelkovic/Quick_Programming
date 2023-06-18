@@ -4,24 +4,28 @@
 
     check_login();
 
-    if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['username']))
+    
+    if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['action']) && $_POST['action'] == 'delete')
         {
+            //delete your profile
+            $id = $_SESSION['info']['id'];
+            $query = "delete from users where id = '$id' limit 1";
+            $result = mysqli_query($con,$query);
+
+            if(file_exists($_SESSION['info']['image'])){
+                unlink($_SESSION['info']['image']);
+            }
+
+            $query = "delete from posts where user_id = '$id'";
+            $result = mysqli_query($con, $query);
+
+            header("Location: logout.php");
+            exit();
+        }
+
+    elseif($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['username']))
+        {  
             //profile edit
-            // echo "<pre>";
-            // print_r($_FILES);
-            //     Array
-            //     (
-            //         [image] => Array
-            //         (
-            //             [name] => Sasa Andjelkovic cv.png
-            //             [full_path] => Sasa Andjelkovic cv.png
-            //             [type] => image/png
-            //             [tmp_name] => C:\xampp\tmp\phpE551.tmp
-            //             [error] => 0
-            //             [size] => 338933
-            //         )
-            //     )
-            // exit;
             $image_added = false;
             if(!empty($_FILES['image']['name']) && $_FILES['image']['error'] == 0){
                 //file was uploaded
@@ -96,6 +100,25 @@
                 <button>Cancel</button>
             </a>
         </form>
+
+        <?php elseif(!empty($_GET['action']) && $_GET['action'] == 'delete'): ?>
+            
+            <h2 style="text-align: center;">Are you sure you want to delete your profile?</h2>
+    
+            <div style="margin: auto;max-width: 600px;text-align:center ">
+                <form method="post" style="margin: auto;padding: 10px;">
+                
+                    <img src="<?php echo $_SESSION['info']['image']?>" style="width: 100px;height: 100px;object-fit: cover;margin:auto;display:block">
+                    <div><?php echo $_SESSION['info']['username']?></div>
+                    <div><?php echo $_SESSION['info']['email']?></div>
+        
+                    <button>Delete</button>
+                    <a href="profile.php">
+                        <button>Cancel</button>
+                    </a>
+                </form>
+            </div>
+
         <?php else:?>
             <h2 style="text-align: center;">User Profile</h2>
             <br>
@@ -112,6 +135,10 @@
                 <a href="profile.php?action=edit">
                     <button>Edit profile</button>
                 </a>
+                <a href="profile.php?action=delete">
+                    <button>Delete profile</button>
+                </a>
+                
             </div>
             <br>
             <hr>
