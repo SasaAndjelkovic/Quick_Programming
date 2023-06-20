@@ -16,7 +16,7 @@
                 unlink($_SESSION['info']['image']);
             }
 
-            $query = "delete from users where user_id = '$id'";
+            $query = "delete from posts where user_id = '$id'";
             $result = mysqli_query($con, $query);
 
             header("Location: logout.php");
@@ -209,6 +209,7 @@
                                     </div>
                                 <?php endif;?>
                                 <div>
+                                    <div style="color:#888"><?=date("jS, M, Y",strtotime($row['date']))?></div>
                                     <?php echo $row['post']?>
     	                        </div>
                             </div>
