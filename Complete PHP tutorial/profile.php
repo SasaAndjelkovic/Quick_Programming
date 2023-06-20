@@ -181,15 +181,13 @@
             <div>
                 <?php
                     $id = $_SESSION['info']['id'];
-                    $query = "select * from posts where user_id = '$id'";
+                    $query = "select * from posts where user_id = '$id' order by id desc limit 10";
 
                     $result = mysqli_query($con,$query);
                 ?>
 
                 <?php if(mysqli_num_rows($result) > 0):?>
-                <!-- <//?php if(!empty($posts)):?> -->
-
-                    <!-- <//?php foreach ($posts as $row):?> -->
+            
                     <?php while($row = mysqli_fetch_assoc($result)):?>
                         <?php 
                             $user_id = $row['user_id'];
@@ -198,18 +196,17 @@
 
                             $user_row = mysqli_fetch_assoc($result2);
                         ?>
-                        <div style="display: flex;border:solid thin #aaa;border-radius: 10px;margin-bottom: 10px;margin-bottom: 10px">
+                        <div style="background-color:white;display: flex;border:solid thin #aaa;border-radius: 10px;margin-bottom: 10px;margin-bottom: 10px">
                             <div style="flex:1;text-align:center;">
-                                <img src="<?=$user_row['image']?>" style="margin:10px;width:100px;height:100px;object-fit: cover;">
+                                <img src="<?=$user_row['image']?>" style="border-radius:50%;margin:10px;width:100px;height:100px;object-fit: cover;">
                                 <br>
                                 <?=$user_row['username']?>
                             </div>
                             <div style="flex:8">
                                 <?php if(file_exists($row['image'])):?>
                                     <div>
-                                        <!-- <img src="<//?php echo $row['image']?>"> -->
                                         <img src="<?=$row['image']?>" style="width:100%;height:200px;object-fit: cover;">
-                                     </div>
+                                    </div>
                                 <?php endif;?>
                                 <div>
                                     <?php echo $row['post']?>
