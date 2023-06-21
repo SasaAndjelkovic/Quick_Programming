@@ -50,8 +50,7 @@
                         <?php endif;?>
                         <div>
                             <div style="color:#888"><?=date("jS, M, Y",strtotime($row['date']))?></div>
-                            <!-- <//?php echo $row['date']?> -->
-                            <?php echo $row['post']?>
+                            <?php echo nl2br(htmlspecialchars($row['post']))?>
                         </div>
                     </div>
                 </div>
