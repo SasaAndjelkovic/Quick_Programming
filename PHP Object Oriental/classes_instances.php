@@ -4,21 +4,29 @@
 class Product{
     //properties - variable
     public $price = 2;
+    public $total = 0;
 
     //methods - function
     function calculate_total(){
-        echo "from the function";
+        $this->total = 10 * 20;
+    }
+
+    function generate_id(){
+        return rand(0,9999);
+    }
+
+    function read(){
+        $this->calculate_total();
+        return $this->total;
     }
 }
 
-$book = new Product(); //instantiation
-echo "book " . $book->price;
-echo "<br>";
-$book->price = 10;
-echo "book " . $book->price;
-echo "<br>";
-$book->calculate_total();
+$obj = new Product();
+$number = $obj->generate_id();
+echo $number;
+
 echo "<br>";
 
-$phone = new Product();
-echo "phone " . $phone->price;
+$book = new Product();
+$book->calculate_total();
+echo $book->read();
