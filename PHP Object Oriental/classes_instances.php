@@ -21,7 +21,6 @@ class Product{
     }
 }
 
-//$book = new Product();//instantiation
-//echo $book::$total;
+$book = new Product();//instantiation
+echo $book->read(); //Accessing static property Product::$total as non static 
 
-echo Product::$total;
