@@ -4,7 +4,7 @@
 class Product{
     //properties - variable
     private $price = 2;
-    private $total = 0;
+    public static $total = 0;
 
     //methods - function
     private function calculate_total(){
@@ -21,7 +21,7 @@ class Product{
     }
 }
 
-$book = new Product();//instantiation
+//$book = new Product();//instantiation
+//echo $book::$total;
 
-//echo $book->total;//Cannot access private property Product::$total 
-echo $book->read();
+echo Product::$total;
