@@ -3,30 +3,25 @@
 //blueprint / mold / pattern / factory for objects
 class Product{
     //properties - variable
-    public $price = 2;
-    public $total = 0;
+    private $price = 2;
+    private $total = 0;
 
     //methods - function
-    function calculate_total(){
+    private function calculate_total(){
         $this->total = 10 * 20;
     }
 
-    function generate_id(){
+    private function generate_id(){
         return rand(0,9999);
     }
 
-    function read(){
+    public function read(){
         $this->calculate_total();
         return $this->total;
     }
 }
 
-$obj = new Product();
-$number = $obj->generate_id();
-echo $number;
+$book = new Product();//instantiation
 
-echo "<br>";
-
-$book = new Product();
-$book->calculate_total();
+//echo $book->total;//Cannot access private property Product::$total 
 echo $book->read();
