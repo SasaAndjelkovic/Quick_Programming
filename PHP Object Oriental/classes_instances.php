@@ -8,7 +8,8 @@ class Product{
 
     //methods - function
     private function calculate_total(){
-        $this->total = 10 * 20;
+        //Product::$total = 10 * 20;
+        self::$total = 10 * 20;
     }
 
     private function generate_id(){
@@ -17,10 +18,11 @@ class Product{
 
     public function read(){
         $this->calculate_total();
-        return $this->total;
+        //return Product::$total;
+        return self::$total;
     }
 }
 
 $book = new Product();//instantiation
-echo $book->read(); //Accessing static property Product::$total as non static 
+echo $book->read();
 
