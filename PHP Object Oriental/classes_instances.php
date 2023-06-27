@@ -7,7 +7,7 @@ class Product{
     public static $total = 0;
 
     //methods - function
-    private function calculate_total(){
+    private static function calculate_total(){
         //Product::$total = 10 * 20;
         self::$total = 10 * 20;
     }
@@ -17,7 +17,8 @@ class Product{
     }
 
     public function read(){
-        $this->calculate_total();
+        //$this->calculate_total();
+        self::calculate_total();
         //return Product::$total;
         return self::$total;
     }
