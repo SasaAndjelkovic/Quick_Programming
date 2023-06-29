@@ -2,28 +2,24 @@
 
 //blueprint / mold / pattern / factory for objects
 class Product{
-    //properties - variable
-    private $price = 2;
-    public static $total = 0;
-
-    //methods - function
-    private static function calculate_total(){
-        //Product::$total = 10 * 20;
-        self::$total = 10 * 20;
-    }
-
-    private function generate_id(){
-        return rand(0,9999);
-    }
-
-    public function read(){
-        //$this->calculate_total();
-        self::calculate_total();
-        //return Product::$total;
-        return self::$total;
+   
+    function __construct($var){
+        echo $var;
     }
 }
 
-$book = new Product();//instantiation
-echo $book->read();
+class Database{
+    public $hostname = "";
+    public $dbname = "";
+    function __construct($hostname, $dbname){
+    //function __construct($hostname = "default", $dbname = ""default){
+        //mora u konstrakt zbog runtime
+        $this->hostname = $hostname;
+        $this->dbname = $dbname;
 
+        echo "$hostname $dbname";
+    }
+}
+
+$book = new Product("za konstrukt");//instantiation
+$db = new Database("localhost", "mydb");
