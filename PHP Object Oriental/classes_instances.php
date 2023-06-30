@@ -12,11 +12,16 @@ class Database{
     }
 
     public function __get($name){
-        echo "the property $name does not exist";
-    }
-    
+        $arr = array();
+        $arr['id'] = '1';
+        $arr['name'] = 'john';
+        $arr['age'] = '24';
+        $arr['gender'] = 'male';
+
+        return $arr[$name];
+    }   
 }
 
 $db = new Database();
 
-echo $db->password;
+echo $db->gender;
