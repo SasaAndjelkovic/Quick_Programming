@@ -3,6 +3,7 @@
 class Database{
     public $hostname = "localhost";
     public $dbname = "mydb";
+    public $find = "";
     function __construct($hostname = "localhost", $dbname = "mydb"){
  
     }
@@ -13,8 +14,17 @@ class Database{
 
     public function __get($name){
 
-        //return get_data();  // Uncaught Error: Call to undefined function get_data()
-        return $this->get_data(); 
+        $rows = $this->get_data();
+
+        if(is_array($rows)){
+            foreach ($rows as $row) {
+                if(isset($row[$name]) && $row[$name] == $this->find) {
+                    return $row;
+                }
+            }
+        }
+
+        return "could not find that data!";
     }   
 
     private function get_data(){
@@ -52,6 +62,6 @@ class Database{
 }
 
 $db = new Database();
-
+$db->find = "mary";
 echo "<pre>";
-print_r($db->gender);
+print_r($db->name);
