@@ -7,17 +7,16 @@ class Database{
  
     }
     public function __set($name, $value){
-        /*$a = "variable";
-        $$a = 1; dinamicno
-        echo $variable;*/
-        $this->$name = $value;
+        //$this->$name = $value;
+        echo "adding new properties not allowed";
+    }
+
+    public function __get($name){
+        echo "the property $name does not exist";
     }
     
 }
 
 $db = new Database();
-//$db->name = "some name"; //ispis setting... zato sto se aktivira defoltna magic funk __set()
-$db->password = "some password";
 
-//echo $db->name;
 echo $db->password;
