@@ -14,6 +14,9 @@ class Database{
 
     public function __get($name){
 
+        $name = str_replace("get", "", $name);
+        $name = strtolower($name);
+
         $rows = $this->get_data();
 
         if(is_array($rows)){
