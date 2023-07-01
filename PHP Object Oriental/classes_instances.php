@@ -62,9 +62,43 @@ class Database{
         
         return $rows;
     }
+
+    public function __call($method, $args){
+        switch ($method) {
+            case 'missingfunction':
+                # code...
+                print_r($args);
+                break;
+            
+            default:
+                # code...
+
+                echo "cant find method";
+                break;
+        }
+    }
+
+    function get_by_id($id){
+        $rows = $this->get_data();
+
+        if(is_array($rows)){
+            foreach ($rows as $row) {
+                if(isset($row['id']) && $row['id'] == $id) {
+                    return $row;
+                }
+            }
+        }
+
+        return "could not find that data!";
+    }
 }
 
 $db = new Database();
 $db->find = "mary";
+
+//$db->missingfunction();
 echo "<pre>";
-print_r($db->name);
+print_r($db->get_by_id(2));
+
+//echo "<pre>";
+//print_r($db->name);
