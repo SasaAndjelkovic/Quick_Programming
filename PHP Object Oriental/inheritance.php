@@ -1,6 +1,9 @@
 <?php
 
 class Database{
+//final class Database{  //Class Product cannot extend final class Database
+    //but final func can
+    //but cannon overide func
    public function show(){
         echo "from database class<br>";
    }
