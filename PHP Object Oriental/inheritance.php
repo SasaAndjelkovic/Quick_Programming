@@ -46,3 +46,7 @@ class User extends Product{
 $me = new User(); //instantiation
 //$me->dostuff();
 echo User::$number;
+// database constructor
+// product constructor
+// user constructor
+// 30
