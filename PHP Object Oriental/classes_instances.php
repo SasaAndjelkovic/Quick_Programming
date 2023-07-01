@@ -84,14 +84,19 @@ class Database{
 
         return "could not find that data!";
     }
+
+    function __toString(){
+
+        return 'you have no rigth to echo me';
+    }
 }
 
 $db = new Database();
-$db->find = "mary";
 
-//$db->missingfunction();
 echo "<pre>";
-print_r($db->get_by_age(24));
+echo $db;
+
+//print_r($db->get_by_age(24));
 
 //echo "<pre>";
 //print_r($db->name);
