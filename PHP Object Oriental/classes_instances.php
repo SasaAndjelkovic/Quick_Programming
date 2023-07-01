@@ -64,26 +64,19 @@ class Database{
     }
 
     public function __call($method, $args){
-        switch ($method) {
-            case 'missingfunction':
-                # code...
-                print_r($args);
-                break;
-            
-            default:
-                # code...
-
-                echo "cant find method";
-                break;
+        if(strstr($method, "get_by_")){
+            $column = str_replace("get_by_", "", $method);
+            return $this->get_by($column, $args[0]);
         }
+        return "could not find that method!";
     }
 
-    function get_by_id($id){
+    function get_by($column, $find){
         $rows = $this->get_data();
 
         if(is_array($rows)){
             foreach ($rows as $row) {
-                if(isset($row['id']) && $row['id'] == $id) {
+                if(isset($row[$column]) && $row[$column] == $find) {
                     return $row;
                 }
             }
@@ -98,7 +91,7 @@ $db->find = "mary";
 
 //$db->missingfunction();
 echo "<pre>";
-print_r($db->get_by_id(2));
+print_r($db->get_by_age(24));
 
 //echo "<pre>";
 //print_r($db->name);
