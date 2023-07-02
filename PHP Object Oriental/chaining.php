@@ -3,7 +3,7 @@
 class Signup {
     private $data = array();
     private $filename = '';
-    public function sanitaze($data) {
+    public function sanitaze(array $data) {
         foreach ($data as $key => $value) {
             $data[$key] = addslashes($value);
         }
@@ -12,7 +12,7 @@ class Signup {
         return $this;
     }
 
-    public function file($filename) {
+    public function file(string $filename) {
         if(!file_exists($filename)){
             file_put_contents($filename, '');
         }
@@ -36,7 +36,9 @@ class Signup {
 
 if(count($_POST)>0){
     $myclass = new Signup();
-    $myclass->sanitaze($_POST)->file('mydata.json')->save();
+    $data = $_POST;
+
+    $myclass->sanitaze($data)->file('mydata.json')->save();
 
     $result = $myclass->file('mydata.json')->read();
 
