@@ -15,9 +15,9 @@ class DB{
         }
         if(!self::$con){
             try{
-                //$string = "mysql:host=localhost;dbname=oop_db";
-                $string = "mysql:host=".DBHOST.";dbname=.DBNAME";
-                //$pdo = new PDO($string,DBUSER,DBPASS);
+    
+                $string = "mysql:host=".DBHOST.";dbname=".DBNAME;
+           
                 self::$con = new PDO($string,DBUSER,DBPASS);
     
             }catch(PDOException $e){
@@ -28,23 +28,33 @@ class DB{
         }
     }
 
-    protected function run(){
-
+    protected function run($values = array()){
+        $stm = self::$con->prepare($this->query);
+        $check = $stm->execute();
+        if($check){
+            $data = $stm->fetchAll(PDO::FETCH_OBJ);
+            if(is_array($data) && count($data) > 0){
+                return $data;
+            }
+        }
+        
+        return false;
     }
 
     public function all(){
-
+        return $this->run();
     }
-    
+
     public function where(){
 
     }
 
     public function select(){
-
+        $this->query = "select * from " . self::$table . " ";
+        return self::$instance;
     }
 
     public function update(){
-
+        return self::$instance;
     }
 }
