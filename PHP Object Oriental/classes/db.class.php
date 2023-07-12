@@ -58,4 +58,8 @@ class DB{
     public function update(){
         return self::$instance;
     }
+
+    public function query($query, $values = array()){
+
+    }
 }
